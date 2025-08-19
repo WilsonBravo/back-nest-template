@@ -20,7 +20,7 @@ import { type AuthTokenRequest } from '@/common/types/types';
 import { UserDto } from '@/modules/users/dto/dto';
 
 import { AuthService } from './auth.service';
-import { UserAuthResponse, UserSignInDto, UserSignUpDto } from './dto/dto';
+import { UserAuthResponse, UserSignInDto } from './dto/dto';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -37,16 +37,16 @@ class AuthController {
     return user;
   }
 
-  @Post('sign-up')
-  @ApiOperation({ summary: 'User Sign Up' })
-  @ApiOkResponse({ type: UserAuthResponse, isArray: false })
-  @UsePipes(new ValidationPipe({ whitelist: true }))
-  async signUp(@Body() userData: UserSignUpDto) {
-    const user = await this.authService.signUp({
-      userData,
-    });
-    return user;
-  }
+  // @Post('sign-up')
+  // @ApiOperation({ summary: 'User Sign Up' })
+  // @ApiOkResponse({ type: UserAuthResponse, isArray: false })
+  // @UsePipes(new ValidationPipe({ whitelist: true }))
+  // async signUp(@Body() userData: UserSignUpDto) {
+  //   const user = await this.authService.signUp({
+  //     userData,
+  //   });
+  //   return user;
+  // }
 
   @Post('sign-in')
   @ApiOperation({ summary: 'User Sign In' })

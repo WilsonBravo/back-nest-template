@@ -7,10 +7,12 @@ import {
 import { ConfigService } from '@nestjs/config';
 import * as bcrypt from 'bcrypt';
 
+import { VALIDATION_ERRORS } from '@/common/constants/constants';
 import { DbService } from '@/modules/database/db.service';
 
-import { UserDto } from './dto/dto';
 import { UserSignUpDto } from '../auth/dto/dto';
+
+import { UserDto } from './dto/dto';
 
 @Injectable()
 class UserService {
@@ -43,7 +45,7 @@ class UserService {
     });
 
     if (!user) {
-      throw new NotFoundException('User not found');
+      throw new NotFoundException(VALIDATION_ERRORS.NOT_FOUND);
     }
 
     return user;
@@ -64,11 +66,6 @@ class UserService {
         role: true,
       },
     });
-
-    if (!experts || experts.length === 0) {
-      throw new NotFoundException('Usuario no encontrado');
-    }
-
     return experts;
   }
 
@@ -85,7 +82,7 @@ class UserService {
     });
 
     if (userExists) {
-      throw new ConflictException('An user with this email already exists');
+      throw new ConflictException(VALIDATION_ERRORS.BAD_REQUEST);
     }
 
     const hashedPassword = await this.hash(userData.password);
@@ -127,14 +124,14 @@ class UserService {
     });
 
     if (!user) {
-      throw new UnauthorizedException('Invalid username or password');
+      throw new UnauthorizedException(VALIDATION_ERRORS.BAD_REQUEST);
     }
 
     const { password, ...userData } = user;
     const isPassword = await this.compare(payload.password, password);
 
     if (!isPassword) {
-      throw new UnauthorizedException('Invalid username or password');
+      throw new UnauthorizedException(VALIDATION_ERRORS.BAD_REQUEST);
     }
 
     return userData;
