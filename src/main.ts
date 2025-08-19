@@ -60,8 +60,8 @@ async function bootstrap() {
 
   if (node_env == 'DEVELOPMENT') {
     const config = new DocumentBuilder()
-      .setTitle('RuedaYa')
-      .setDescription('RuedaYa API')
+      .setTitle('PeritoYA')
+      .setDescription('PeritoYA API')
       .setVersion('1.0')
       .addBearerAuth(
         {

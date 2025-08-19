@@ -1,7 +1,6 @@
 import {
   Body,
   Controller,
-  Get,
   Post,
   Request,
   UseGuards,
@@ -29,8 +28,8 @@ class AuthController {
 
   @UseGuards(AuthGuard)
   @ApiBearerAuth('JWT-auth')
-  @Get('verify-token')
-  @ApiOperation({ summary: 'Verify access token' })
+  @Post('verify-token')
+  @ApiOperation({ summary: 'Verificación de Token' })
   @ApiOkResponse({ type: UserDto, isArray: false })
   verifyToken(@Request() req: AuthTokenRequest) {
     const user = req.user;
@@ -49,7 +48,7 @@ class AuthController {
   // }
 
   @Post('sign-in')
-  @ApiOperation({ summary: 'User Sign In' })
+  @ApiOperation({ summary: 'Sign In' })
   @ApiOkResponse({ type: UserAuthResponse, isArray: false })
   @UsePipes(new ValidationPipe({ whitelist: true }))
   async signIn(@Body() userData: UserSignInDto) {
