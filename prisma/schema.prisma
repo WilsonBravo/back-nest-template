@@ -4,8 +4,17 @@ generator client {
 }
 
 datasource db {
-  provider          = "postgresql"
-  url               = env("PG_DATABASE_URL")
+  provider = "postgresql"
+  url      = env("PG_DATABASE_URL")
+}
+
+// ENUMS
+enum UserRole {
+  OPERADOR
+  DIRECTOR
+  ADMINISTRADOR
+
+  @@map("user_role")
 }
 
 // MODELS
@@ -17,6 +26,8 @@ model User {
   secondLastName String @map("second_last_name")
   email          String @unique
   password       String
+
+  role UserRole @default(OPERADOR)
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")

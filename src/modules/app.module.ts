@@ -3,8 +3,10 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { CacheModule } from '@nestjs/cache-manager';
 import { JwtModule } from '@nestjs/jwt';
 
-import { HealthModule } from './health/health.module';
-import { DbModule } from '@/database/db.module';
+import { DbModule } from './database/db.module';
+import { UserModule } from './users/user.module';
+import { AuthModule } from './auth/auth.module';
+import { LoggerModule } from './logger/logger.module';
 
 @Module({
   imports: [
@@ -24,8 +26,10 @@ import { DbModule } from '@/database/db.module';
         signOptions: { expiresIn: '1d' },
       }),
     }),
-    HealthModule,
     DbModule,
+    UserModule,
+    AuthModule,
+    LoggerModule,
   ],
 })
 export class AppModule {}
